@@ -1,0 +1,1586 @@
+<html>
+  <head>
+    <style>
+      body {
+        width: 100%;
+        margin: 0;
+        font-family: "Futura", sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        color: #374062;
+        letter-spacing: 0.01em;
+        box-sizing: "border-box";
+      }
+
+      p,
+      h1,
+      h2,
+      h3,
+      span {
+        margin: 0;
+        padding: 0;
+      }
+
+      /* HEADER */
+      #headerbar {
+        width: 100%;
+        height: 14px;
+        margin-left: 0px;
+        margin-top: 0px;
+        background-color: #0061a7;
+      }
+
+      #headercontent {
+        width: 100%;
+        height: 77px;
+        background-color: #ffffff;
+      }
+
+      .headerstatement {
+        position: absolute;
+        padding: 0px 20px;
+        top: 120px;
+        left: 0;
+        right: 0;
+      }
+
+      .imgbtn {
+        margin: 20px 0 0 20px;
+        width: 162px;
+      }
+
+      /* HEADER */
+      .page-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100px;
+        width: 100%;
+        border-bottom: 4px solid #f4f7fb;
+      }
+
+      /* FOOTER */
+      .page-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 170px;
+        width: 100%;
+      }
+
+      .page-footer > table {
+        border: none;
+        border-collapse: collapse;
+      }
+
+      .page-footer > table tr:nth-child(2) > td {
+        padding: 25px 0;
+      }
+
+      .copyright {
+        text-align: center;
+        color: #fff;
+        font-size: 10px;
+      }
+
+      #current-page::after {
+        content: " " counter(page) " ";
+      }
+
+      #total-page::after {
+        content: " " counter(pages);
+      }
+
+      /* Content */
+      .container {
+        padding: 0px 20px;
+      }
+
+      .titlefile {
+        color: #374062;
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: 0.03em;
+        text-align: left;
+      }
+
+      .tabledata {
+        width: 100%;
+        border: none;
+        border-collapse: separate;
+        border-spacing: 0 5px;
+        margin-top: 20px;
+
+        -fs-page-sequence: auto;
+        -fs-table-paginate: paginate;
+      }
+
+      .tabledata > thead > tr:nth-child(2) {
+        background-color: #0061a7;
+        color: #ffffff;
+      }
+
+      .tabledata > thead > tr td {
+        color: #ffffff;
+        border: none;
+        font-size: 11px;
+        padding: 10px;
+        text-align: left;
+      }
+
+      .tabledata > tbody > tr {
+        background: white;
+      }
+
+      .tabledata > tbody > tr > td {
+        font-size: 11px;
+        color: #374062;
+        padding: 10px;
+        text-align: left;
+        vertical-align: center;
+      }
+
+      .tabledata .textRemark {
+        margin: 0px 0px 5px 0px;
+      }
+
+      .tabledata tr:nth-child(even) {
+        background-color: #f4f7fb;
+      }
+
+      .table-container {
+        width: 100%;
+      }
+
+      .table-container > thead > tr {
+        height: 100px;
+      }
+
+      .table-container > tfoot > tr {
+        height: 170px;
+      }
+
+      .tabledata > tfoot > tr {
+        height: 170px;
+      }
+
+      .tabledata > thead > tr:nth-child(1) {
+        height: 100px;
+      }
+
+      .textBold {
+        font-weight: bold;
+      }
+
+      .footerText1 {
+        display: flex;
+        gap: 15px;
+      }
+
+      @page {
+        size: 800px 1260px;
+        margin: 0;
+        counter-increment: page;
+      }
+
+      @media print {
+        .page-footer {
+          position: fixed;
+          bottom: 0;
+          height: 170px;
+          width: 100%;
+        }
+        .page-header {
+          position: fixed;
+          top: 0;
+          height: 100px;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <table class="table-container">
+      <thead>
+        <tr>
+          <td>
+            <div class="page-header">
+              <div id="headerbar"></div>
+              <div id="headercontent">
+                <img
+                  class="imgbtn"
+                  src="https://storage.mylabzolution.com/digitalbanking/public/IBB/LogoBankBTN.jpg"
+                />
+              </div>
+            </div>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="container">
+              <div class="headerstatement">
+                <h2 class="textBold" style="margin-bottom: 10px">
+                  Laporan Non Financial Terbaru
+                </h2>
+                <h3
+                  class="titlefile"
+                  style="margin-bottom: 10px"
+                  th:text="${companyName}"
+                >
+                  PT. Infosys Solusi Terpadu
+                </h3>
+                <p>Periode Tanggal: 1 Mar 2023 - 31 Mar 2023</p>
+              </div>
+              <table cellspacing="0" cellpadding="0" class="tabledata">
+                <thead>
+                  <tr>
+                    <td colspan="5">
+                      <div class="page-header"></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Tanggal &amp; Waktu</td>
+                    <td>Informasi Pengguna</td>
+                    <td>Aktivitas</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                  <tr th:each="data : ${listData}">
+                    <td>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'dd MMM yyyy')}"
+                      >
+                        24 August 2021
+                      </p>
+                      <p
+                        th:text="${#temporals.format(data.dateTime, 'HH:mm:ss')}"
+                      >
+                        18:00:09
+                      </p>
+                    </td>
+                    <td>
+                      <p class="textBold" th:text="${data.fullName}">
+                        Nanda Mahardika
+                      </p>
+                      <p th:text="${data.username}">Nanda91293</p>
+                    </td>
+                    <td>
+                      <p th:text="${data.activity}">
+                        Pengajuan Kredit Kepemilikan Rumah
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>
+                      <div class="page-footer"></div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>
+            <div class="page-footer">
+              <table width="100%" height="100%" border="0">
+                <tr>
+                  <td style="padding: 10px">
+                    <span style="padding-right: 5px">
+                      Tanggal Penerbitan :
+                    </span>
+                    <span
+                      th:text="${currentDate} ? ${currentDate} : ${#calendars.format(#calendars.createNow(), 'dd MMMM yyyy')}"
+                      >05 Juni 2021</span
+                    >
+                  </td>
+                  <td style="padding: 10px" align="right">
+                    <span style="padding-right: 5px">Halaman</span>
+                    <span style="padding-right: 5px" id="current-page"></span>
+                    <span style="padding-right: 5px">dari</span>
+                    <span style="padding-right: 5px" id="total-page"></span>
+                  </td>
+                </tr>
+                <tr style="background: #0061a7">
+                  <td colspan="2" align="center" style="vertical-align: center">
+                    <div class="copyright">
+                      <img
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG8AAAAaCAYAAAC5KgISAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAVYSURBVHgB7Vn9lds2DIfz+n+0wSkT9DpBmAnqDaJO0OsEViY4dwL7JrAzgZwJfDcBdRPYmQAlTmAEQaAl3Ufb+Pn3Hp8kEgBB4kMQBXCGQMQitH1oC7jg50Awlgutwi48GRPOEDP5EBaZh0tu0B1ns9k9vCF4g3N+3IX5dhN4s3ChKLsR3XehfRQyt6H9FeTWI0Q+OUK4uBMkx9DupZ6B5zpc5jAea74Wqn8Z5B6F3FIOhrGyJ4nTjcQytDl77+Et0xAtXMxbTOD7k3WLqNgJn5wxtLVa0yqOD8itcBz27DzA+zUFpN+N0V8IPXI1VqUUloQH0e9EfwlvAOwa73oEvU6RHptosWhzg7YYkH/A8SiYp5rA45lnZYxVQo+5Glue2hBLQG71vyaw9cDDSHof6VE5FDYZhMYXif4Il5CdWxvKzRtjJfNNwZZ59sYYrSkVzUVqQ0qtEPebRhXjWZxsDLCJMqf6Nin5CRme6Z3Ss1KL9XrBYswlZGtvr9T4fmhDsZ8Oq8RcKRQ8Xql+OyspQif6V9x3kMzYGO2W+4mXPHvDG3aF7fvSs4wMWyMRbgxjlPwco4Q2Kjd09VJP7Doe6bPEbpTsjQ1ziX3Q3r7CJhqpOSXXJ2SslIylQeMwjUrp+rQuSAG7eZ42njawEpuRQ9dwe7kJ2BrmYBkFG2+8FvPE1CHTlBML85goLrBvvDU//zA26xgN4QVvZy5DdoXjsDmh33Oi86DutXE70ftOCKKIiqmvhqbEdtyobD3wNeI2NOJZi3L5O1+/xc2D7qfHlmXIeYDlRNwHvjnL/zS2tBf4Gnm43N7CdAwWTAzS86Pu5HVrGdanlub9Iu5Jxq0af5AP78R9LonCwulbowj3n3isDG3DypFiBdPeCb4rvu74Khew4011so+vsY8W+Jnn+fIMwxHeB/0W7LkrsL9bk1BOTCAH+EM07QxW9acNl/pOztXzDto9seTswAJ283ypxmQ4X2Gbz32C7pqfS02H3XderKgqI3WUcAKYTpuYSEWj0iYOFyu5MceVohksVrBJ6R09E7wSHWPKyJMhvIM0PkB7irATyhTQeGwtvCzK/Fvwu8grThGiUmtoU0cvHaXAi5L0R56zhjaKaLPGnH449fxNzEOyPmuGsI5H1aV1f4A+Uml1DTbs6DW8IBNj0tO8oi0Fnee+rejTkSg/xG+MPofdl3Ty80PMV2EXG6W/VTn+mM+Qq+UNYWXI0MXK3KDREbYc0KEXvTHypBfU8lwNmjPDiDsei+O/8mREE72CCg4ySHx3SI/J1AJoUU50xbPCKH+Bw0dyjq+R50Hpr99RBZzG2GKFUEO3yEgVK7XBq6NzJ+6/GvT96MUmsqSnULTEz4T4fqLxQvBUgp7GSkHrsfH2G+0xPFeMxoqfV1GOoJPvndJYSJS15vnm2L7z6LtzwfOssD2v9exUnud2hkyZBU7B85ozQ4ZTtIeE/l7R5WIsM+bsRe8M038SImpd9bHSlPYo8qg0X7McipJH89S7y5tFmWhHKLC8bOhvBsmjSCPjgfE+Uuv4AAPA4UPro4rsnj6gMoxVNet5jD3Op8z7UwObSPfR27F/wnILZ4YZnBHYWym9rKOXYpPu6yn/B/8vUFGc8z21La3vrIz3X0JtdKYaqHv5XZgb4zmkQUXdb3RzMZ4BbP+iv4fxBnktUMaooaneH/n+qen34sV4Apx2qTrO4W1RQ2McMtQDX+m5nlKUXIzH4LRHnys5vBwyer5Da6j7Z57XmvgFLoigQiefQF+LFtPb5Oh5CS7Ga/G7eo7RQ02+e141el6CS9pk8AkGpc5/NXpegn8AN0F+TjdrzJAAAAAASUVORK5CYII="
+                      />
+                      <div style="font-size: 12px; margin-bottom: 5px">
+                        Copyright 2021 Bank Tabungan Negara
+                      </div>
+                      <div>
+                        BTN terdaftar dan diawasi oleh OJK Terdepan dan
+                        terpercaya dalam memfasilitasi sektor
+                      </div>
+                      <div>perumahan dan jasa layanan keuangan keluarga</div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>
